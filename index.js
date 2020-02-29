@@ -11,8 +11,6 @@ var deleteModel = require('./dlg/model/DeleteModel');
 var getChallengers = require('./dlg/challenger/GetChallengers');
 var getChallenger = require('./dlg/challenger/GetChallenger');
 var postChallenger = require('./dlg/challenger/PostChallenger');
-var getChallengerMetrics = require('./dlg/challenger/GetMetrics');
-var postChallengerMetrics = require('./dlg/challenger/PostMetrics');
 
 var apiName = 'totoml-registry';
 
@@ -27,7 +25,5 @@ api.path('GET', '/models/:modelName/challengers', getChallengers);
 api.path('POST', '/models/:modelName/challengers', postChallenger);
 
 api.path('GET', '/challengers/:id', getChallenger);
-api.path('GET', '/challengers/:id/metrics', getChallengerMetrics);
-api.path('POST', '/challengers/:id/metrics', postChallengerMetrics);
 
 api.listen();
