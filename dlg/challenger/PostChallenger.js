@@ -15,7 +15,7 @@ exports.do = function(request) {
 
     return MongoClient.connect(config.mongoUrl, function(err, db) {
       
-      db.db(config.dbName).collection(config.collections.challengers).insertOne(converter.challengerPO(modelName, body), function(err, res) {
+      db.db(config.dbName).collection(config.collections.challengers).insertOne(converter.challengerPO(request.params.modelName, body), function(err, res) {
 
         db.close();
 
