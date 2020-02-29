@@ -6,6 +6,7 @@ var TotoEventConsumer = require('toto-event-consumer');
 var postModel = require('./dlg/model/PostModel');
 var getModels = require('./dlg/model/GetModels');
 var getModel = require('./dlg/model/GetModel');
+var deleteModel = require('./dlg/model/DeleteModel');
 
 var getChallengers = require('./dlg/challenger/GetChallengers');
 var getChallenger = require('./dlg/challenger/GetChallenger');
@@ -18,6 +19,7 @@ var api = new Controller(apiName);
 api.path('GET', '/models', getModels);
 api.path('POST', '/models', postModel);
 api.path('GET', '/models/:name', getModel);
+api.path('DELETE', '/models/:name', deleteModel)
 
 api.path('GET', '/models/:modelName/challengers', getChallengers);
 api.path('POST', '/models/:modelName/challengers', postChallenger);

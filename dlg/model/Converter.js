@@ -27,7 +27,7 @@ exports.modelPO = function(data) {
   
   return {
     name: data.name,
-    version: data.version,
+    version: version,
     date: date
   };
 }
