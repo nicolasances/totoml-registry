@@ -17,12 +17,12 @@ exports.challengerTO = function(data) {
 /**
  * Creates a mongodb persistent object
  */
-exports.challengerPO = function(data) {
+exports.challengerPO = function(modelName, data) {
 
   date = moment().tz('Europe/Rome').format('YYYYMMDD');
   
   return {
-    modelName: data.modelName,
+    modelName: modelName,
     date: date
   };
 }
