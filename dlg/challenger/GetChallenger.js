@@ -10,7 +10,7 @@ exports.do = function(req) {
 
     return MongoClient.connect(config.mongoUrl, function(err, db) {
 
-      db.db(config.dbName).collection(config.collections.models).find({_id: new mongo.ObjectId(req.params.id)}).toArray(function(err, array) {
+      db.db(config.dbName).collection(config.collections.challengers).find({_id: new mongo.ObjectId(req.params.id)}).toArray(function(err, array) {
 
         db.close();
 
