@@ -19,9 +19,8 @@ exports.do = function(request) {
 
     metrics = body.metrics;
 
-    for (metric in metrics) {
-      console.log(metric);
-      console.log(metric.name);
+    for (var i = 0; i < metrics.length; i++) {
+      metric = metrics[i];
       if (!metric.name) {failure({code: 400, message: 'One of the metrics missed the "name" attribute'}); return;}
       if (!metric.value) {failure({code: 400, message: 'One of the metrics missed the "value" attribute'}); return;}
     }
