@@ -11,7 +11,7 @@ var getChallengers = require('./dlg/challenger/GetChallengers');
 var getChallenger = require('./dlg/challenger/GetChallenger');
 var postChallenger = require('./dlg/challenger/PostChallenger');
 
-var apiName = 'models';
+var apiName = 'totoml-registry';
 
 var api = new Controller(apiName);
 
