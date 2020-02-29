@@ -16,6 +16,8 @@ exports.do = function(request) {
     // Some validation
     if (!request.params.id) {failure({code: 400, message: 'Missing the "id" of the challenger in the path'}); return; }
     if (!body.metrics || body.metrics.length == 0) {failure({code: 400, message: 'Missing "metrics" in the body.'}); return;}
+
+    console.log(body);
     
     metrics = body.metrics;
 
