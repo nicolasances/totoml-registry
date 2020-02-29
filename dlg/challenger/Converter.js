@@ -44,7 +44,9 @@ exports.metricPO = (challengerId, data) => {
 
   metrics = []
 
-  for (metric in data.metrics) {
+  for (var i = 0; i < data.metrics.length; i++) {
+    metric = data.metrics[i];
+
     metrics.push({
       name: metric.name, 
       value: metric.value
@@ -64,7 +66,9 @@ exports.metricTO = (data) => {
 
   metrics = []
 
-  for (metric in data.metrics) {
+  for (var i = 0; i < data.metrics.length; i++) {
+    metric = data.metrics[i];
+    
     metrics.push({
       name: metric.name, 
       value: metric.value
