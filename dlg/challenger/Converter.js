@@ -36,3 +36,44 @@ exports.find = (query) => {
 
   return {};
 }
+
+/**
+ * Creates a PO from a TO
+ */
+exports.metricPO = (challengerId, data) => {
+
+  metrics = []
+
+  for (metric in data.metrics) {
+    metrics.push({
+      name: metric.name, 
+      value: metric.value
+    })
+  }
+  
+  return {
+    challengerId: challengerId, 
+    metrics: metrics
+  }
+}
+
+/**
+ * TO from PO
+ */
+exports.metricTO = (data) => {
+
+  metrics = []
+
+  for (metric in data.metrics) {
+    metrics.push({
+      name: metric.name, 
+      value: metric.value
+    })
+  }
+  
+  return {
+    id: data._id, 
+    challengerId: data.challengerId, 
+    metrics: metrics
+  }
+}
