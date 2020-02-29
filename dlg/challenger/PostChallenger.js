@@ -11,7 +11,7 @@ exports.do = function(request) {
   return new Promise(function(success, failure) {
 
     // Some validation
-    if (!body.modelName) {failure({code: 400, message: 'Missing "modelName" field.'}); return;}
+    if (!request.params.modelName) {failure({code: 400, message: 'Missing "modelName" in the path.'}); return;}
 
     return MongoClient.connect(config.mongoUrl, function(err, db) {
       

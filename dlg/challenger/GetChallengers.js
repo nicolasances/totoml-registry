@@ -9,11 +9,11 @@ exports.do = function(req) {
   return new Promise(function(success, failure) {
 
     // Validation
-    if (!req.query.modelName) {failure({code: 400, message: 'Missing the required path param  "modelName"'}); return;}
+    if (!req.params.modelName) {failure({code: 400, message: 'Missing the required path param  "modelName"'}); return;}
 
     return MongoClient.connect(config.mongoUrl, function(err, db) {
 
-      db.db(config.dbName).collection(config.collections.challengers).find(converter.find(req.query)).toArray(function(err, array) {
+      db.db(config.dbName).collection(config.collections.challengers).find(converter.find({modelName: req.params.modelName})).toArray(function(err, array) {
 
         db.close();
 
