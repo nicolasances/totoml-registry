@@ -7,10 +7,22 @@ exports.challengerTO = function(data) {
 
   if (data == null) return {};
 
+  metrics = []
+
+  for (var i = 0; i < data.metrics.length; i++) {
+    metric = data.metrics[i];
+    
+    metrics.push({
+      name: metric.name, 
+      value: metric.value
+    })
+  }
+
   return {
     id: data._id,
     modelName: data.modelName,
-    date: data.date
+    date: data.date, 
+    metrics: metrics
   };
 }
 
@@ -19,11 +31,25 @@ exports.challengerTO = function(data) {
  */
 exports.challengerPO = function(modelName, data) {
 
+  // Date of creation of this challenger
   date = moment().tz('Europe/Rome').format('YYYYMMDD');
+
+  // Metrics of this challenger
+  metrics = []
+
+  for (var i = 0; i < data.metrics.length; i++) {
+    metric = data.metrics[i];
+
+    metrics.push({
+      name: metric.name, 
+      value: metric.value
+    })
+  }
   
   return {
     modelName: modelName,
-    date: date
+    date: date, 
+    metrics: metrics
   };
 }
 
@@ -35,49 +61,4 @@ exports.find = (query) => {
   if (query.modelName) return {modelName: query.modelName};
 
   return {};
-}
-
-/**
- * Creates a PO from a TO
- */
-exports.metricPO = (challengerId, data) => {
-
-  metrics = []
-
-  for (var i = 0; i < data.metrics.length; i++) {
-    metric = data.metrics[i];
-
-    metrics.push({
-      name: metric.name, 
-      value: metric.value
-    })
-  }
-  
-  return {
-    challengerId: challengerId, 
-    metrics: metrics
-  }
-}
-
-/**
- * TO from PO
- */
-exports.metricTO = (data) => {
-
-  metrics = []
-
-  for (var i = 0; i < data.metrics.length; i++) {
-    metric = data.metrics[i];
-    
-    metrics.push({
-      name: metric.name, 
-      value: metric.value
-    })
-  }
-  
-  return {
-    id: data._id, 
-    challengerId: data.challengerId, 
-    metrics: metrics
-  }
 }
