@@ -32,7 +32,7 @@ exports.challengerPO = function(modelName, data) {
  */
 exports.find = (query) => {
 
-  if (query.modelName) return {name: query.modelName};
+  if (query.modelName) return {modelName: query.modelName};
 
   return {};
 }
