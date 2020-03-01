@@ -8,6 +8,9 @@ var getModels = require('./dlg/model/GetModels');
 var getModel = require('./dlg/model/GetModel');
 var deleteModel = require('./dlg/model/DeleteModel');
 
+var getRetrained = require('./dlg/retrained/GetRetrainedModel');
+var postRetrained = require('./dlg/retrained/PostRetrainedModel');
+
 var getChallengers = require('./dlg/challenger/GetChallengers');
 var getChallenger = require('./dlg/challenger/GetChallenger');
 var postChallenger = require('./dlg/challenger/PostChallenger');
@@ -21,9 +24,11 @@ api.path('POST', '/models', postModel);
 api.path('GET', '/models/:name', getModel);
 api.path('DELETE', '/models/:name', deleteModel)
 
+api.path('GET', '/models/:modelName/retrained', getRetrained);
+api.path('POST', '/models/:modelName/retrained', postRetrained);
+
 api.path('GET', '/models/:modelName/challengers', getChallengers);
 api.path('POST', '/models/:modelName/challengers', postChallenger);
-
 api.path('GET', '/challengers/:id', getChallenger);
 
 api.listen();
