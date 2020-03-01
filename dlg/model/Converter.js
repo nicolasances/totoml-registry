@@ -79,6 +79,9 @@ exports.updateMetrics = (data) => {
       }
     }
 
+    console.log({$set: {metrics: metrics}});
+    
+
     return {$set: {metrics: metrics}}
 
 }
