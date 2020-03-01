@@ -15,7 +15,14 @@ exports.do = function(req) {
 
       db.db(config.dbName).collection(config.collections.retrained).find({modelName: request.params.modelName}).toArray(function(err, array) {
 
+        console.log(array);
+
         db.close();
+
+        if (array == null || array.length == 0) {
+          success({})
+          return;
+        }
 
         success(converter.retrainedTO(array[0]));
 
