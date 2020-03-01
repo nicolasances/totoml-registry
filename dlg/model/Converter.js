@@ -7,11 +7,23 @@ exports.modelTO = function(data) {
 
   if (data == null) return {};
 
+  metrics = []
+
+  for (var i = 0; i < data.metrics.length; i++) {
+    metric = data.metrics[i];
+    
+    metrics.push({
+      name: metric.name, 
+      value: metric.value
+    })
+  }
+
   return {
     id: data._id,
     name: data.name,
     version: data.version,
-    date: data.date
+    date: data.date, 
+    metrics: metrics
   };
 }
 
@@ -24,11 +36,23 @@ exports.modelPO = function(data) {
   
   version = data.version;
   if (!version) version = 1;
+
+  metrics = []
+
+  for (var i = 0; i < data.metrics.length; i++) {
+    metric = data.metrics[i];
+    
+    metrics.push({
+      name: metric.name, 
+      value: metric.value
+    })
+  }
   
   return {
     name: data.name,
     version: version,
-    date: date
+    date: date, 
+    metrics: metrics
   };
 }
 
