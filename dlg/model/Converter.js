@@ -33,6 +33,27 @@ exports.modelPO = function(data) {
 }
 
 /**
+ * Converts the provided data into a statement to update the metrics
+ */
+exports.updateMetrics = (data) => {
+
+    // Metrics of this challenger
+    metrics = []
+
+    for (var i = 0; i < data.metrics.length; i++) {
+      metric = data.metrics[i];
+  
+      metrics.push({
+        name: metric.name, 
+        value: metric.value
+      })
+    }
+
+    return {$set: {metrics: metrics}}
+
+}
+
+/**
  * Creates a find filter for mongo based on a HTTP query obj
  */
 exports.find = (query) => {
