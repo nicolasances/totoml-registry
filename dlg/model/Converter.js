@@ -71,6 +71,8 @@ exports.updateMetrics = (data) => {
     if (data.metrics != null) {
       for (var i = 0; i < data.metrics.length; i++) {
         metric = data.metrics[i];
+
+        console.log("Name: " + metric.name);
         
         metrics.push({
           name: metric.name, 
@@ -78,9 +80,6 @@ exports.updateMetrics = (data) => {
         })
       }
     }
-
-    console.log({$set: {metrics: metrics}});
-    
 
     return {$set: {metrics: metrics}}
 
