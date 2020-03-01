@@ -9,13 +9,15 @@ exports.modelTO = function(data) {
 
   metrics = []
 
-  for (var i = 0; i < data.metrics.length; i++) {
-    metric = data.metrics[i];
-    
-    metrics.push({
-      name: metric.name, 
-      value: metric.value
-    })
+  if (data.metrics != null) {
+    for (var i = 0; i < data.metrics.length; i++) {
+      metric = data.metrics[i];
+      
+      metrics.push({
+        name: metric.name, 
+        value: metric.value
+      })
+    }
   }
 
   return {
@@ -39,13 +41,15 @@ exports.modelPO = function(data) {
 
   metrics = []
 
-  for (var i = 0; i < data.metrics.length; i++) {
-    metric = data.metrics[i];
-    
-    metrics.push({
-      name: metric.name, 
-      value: metric.value
-    })
+  if (data.metrics != null) {
+    for (var i = 0; i < data.metrics.length; i++) {
+      metric = data.metrics[i];
+      
+      metrics.push({
+        name: metric.name, 
+        value: metric.value
+      })
+    }
   }
   
   return {
@@ -64,13 +68,15 @@ exports.updateMetrics = (data) => {
     // Metrics of this challenger
     metrics = []
 
-    for (var i = 0; i < data.metrics.length; i++) {
-      metric = data.metrics[i];
-  
-      metrics.push({
-        name: metric.name, 
-        value: metric.value
-      })
+    if (data.metrics != null) {
+      for (var i = 0; i < data.metrics.length; i++) {
+        metric = data.metrics[i];
+        
+        metrics.push({
+          name: metric.name, 
+          value: metric.value
+        })
+      }
     }
 
     return {$set: {metrics: metrics}}
