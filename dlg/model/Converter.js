@@ -72,8 +72,6 @@ exports.updateMetrics = (data) => {
       for (var i = 0; i < data.metrics.length; i++) {
         metric = data.metrics[i];
 
-        console.log("Name: " + metric.name);
-        
         metrics.push({
           name: metric.name, 
           value: metric.value
