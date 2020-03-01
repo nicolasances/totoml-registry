@@ -4,7 +4,7 @@ var converter = require('./Converter');
 
 var MongoClient = mongo.MongoClient;
 
-exports.do = function(req) {
+exports.do = function(request) {
 
   return new Promise(function(success, failure) {
 
@@ -14,8 +14,6 @@ exports.do = function(req) {
     return MongoClient.connect(config.mongoUrl, function(err, db) {
 
       db.db(config.dbName).collection(config.collections.retrained).find({modelName: request.params.modelName}).toArray(function(err, array) {
-
-        console.log(array);
 
         db.close();
 
