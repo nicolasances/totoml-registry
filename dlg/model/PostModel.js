@@ -14,12 +14,16 @@ exports.do = function(request) {
     if (!body.name) {failure({code: 400, message: 'Missing "name" field.'}); return;}
 
     return MongoClient.connect(config.mongoUrl, function(err, db) {
+
+      model = converter.modelPO(body)
       
-      db.db(config.dbName).collection(config.collections.models).insertOne(converter.modelPO(body), function(err, res) {
+      db.db(config.dbName).collection(config.collections.models).insertOne(model, function(err, res) {
 
         db.close();
 
-        success({id: res.insertedId});
+        model.id = res.insertedId;
+
+        success(model);
 
       });
     });
