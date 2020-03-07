@@ -8,6 +8,7 @@ var getModels = require('./dlg/model/GetModels');
 var getModel = require('./dlg/model/GetModel');
 var deleteModel = require('./dlg/model/DeleteModel');
 var postModelMetrics = require('./dlg/model/PostModelMetrics');
+var getModelHistoricalMetrics = require('./dlg/model/GetModelHistoricalMetrics');
 
 var getRetrained = require('./dlg/retrained/GetRetrainedModel');
 var postRetrained = require('./dlg/retrained/PostRetrainedModel');
@@ -25,6 +26,7 @@ api.path('POST', '/models', postModel);
 api.path('GET', '/models/:name', getModel);
 api.path('DELETE', '/models/:name', deleteModel);
 api.path('POST', '/models/:name/metrics', postModelMetrics);
+api.path('GET', '/models/:name/metrics', getModelHistoricalMetrics);
 
 api.path('GET', '/models/:modelName/retrained', getRetrained);
 api.path('POST', '/models/:modelName/retrained', postRetrained);
