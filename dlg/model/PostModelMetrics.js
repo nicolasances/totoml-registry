@@ -34,7 +34,7 @@ exports.do = function(request) {
         options = {upsert: true}
         
         // Add a metric to the historical time serie of metrics
-        db.db(config.dbName).collection(config.collections.historicalMetrics).update({name: request.params.name, date: today}, converter.updateMetrics(body), options, function(err, res) {
+        db.db(config.dbName).collection(config.collections.historicalMetrics).updateOne({name: request.params.name, date: today}, converter.updateMetrics(body), options, function(err, res) {
   
           db.close();
   
