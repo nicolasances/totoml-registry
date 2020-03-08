@@ -63,7 +63,7 @@ exports.do = function(request) {
                         // Update the model file in GCP Storage
                         logger.compute(correlationId, '[ MODEL PROMOTE ] - Updating the Storage champion model', 'info');
 
-                        storageBucket = 'toto-' + process.env.SERVERENV.toLowerCase() + '-model-storage';
+                        storageBucket = 'toto-' + process.env.TOTO_ENV + '-model-storage';
                         sourceFile = modelName + '/retrained/' + modelName;
                         destFile = modelName + '/champion/' + modelName + '.v' + newModelVersion;
 
