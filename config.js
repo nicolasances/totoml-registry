@@ -1,5 +1,5 @@
 
-exports.mongoUrl = "mongodb://mongo:27017/";
+exports.mongoUrl = "mongodb://localhost:27017/";
 
 exports.dbName = 'totoml';
 exports.collections = {

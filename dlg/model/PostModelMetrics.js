@@ -24,6 +24,17 @@ exports.do = function(request) {
     // Some validation
     if (!request.params.name) {failure({code: 400, message: 'Missing "name" field.'}); return;}
 
+    if (!body.metrics || body.metrics.length == 0) {failure({code: 400, message: 'Missing "metrics" in the body.'}); return;}
+
+    // Validate the metrics data
+    metrics = body.metrics;
+
+    for (var i = 0; i < metrics.length; i++) {
+      metric = metrics[i];
+      if (!metric.name) {failure({code: 400, message: 'One of the metrics missed the "name" attribute'}); return;}
+      if (!metric.value) {failure({code: 400, message: 'One of the metrics missed the "value" attribute'}); return;}
+    }
+
     return MongoClient.connect(config.mongoUrl, function(err, db) {
       
       // Update the current model metrics

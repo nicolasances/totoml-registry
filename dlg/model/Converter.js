@@ -92,22 +92,32 @@ exports.modelHistoricalMetricTO = function(data) {
  */
 exports.updateMetrics = (data) => {
 
-    // Metrics of this challenger
-    metrics = []
+  // Metrics of this challenger
+  metrics = []
 
-    if (data.metrics != null) {
-      for (var i = 0; i < data.metrics.length; i++) {
-        metric = data.metrics[i];
+  if (data.metrics != null) {
+    for (var i = 0; i < data.metrics.length; i++) {
+      metric = data.metrics[i];
 
-        metrics.push({
-          name: metric.name, 
-          value: metric.value
-        })
-      }
+      metrics.push({
+        name: metric.name, 
+        value: metric.value
+      })
     }
+  }
 
-    return {$set: {metrics: metrics}}
+  return {$set: {metrics: metrics}}
 
+}
+
+/**
+ * Updates the version of the model
+ */
+exports.updateVersion = (newVersion) => {
+
+  date = moment().tz('Europe/Rome').format('YYYYMMDD');
+
+  return {$set: {version: newVersion, date: date}}
 }
 
 /**

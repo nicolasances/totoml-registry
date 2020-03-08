@@ -12,6 +12,7 @@ var getModelHistoricalMetrics = require('./dlg/model/GetModelHistoricalMetrics')
 
 var getRetrained = require('./dlg/retrained/GetRetrainedModel');
 var postRetrained = require('./dlg/retrained/PostRetrainedModel');
+var promoteRetrainedModel = require('./dlg/retrained/PromoteRetrainedModel');
 
 var getChallengers = require('./dlg/challenger/GetChallengers');
 var getChallenger = require('./dlg/challenger/GetChallenger');
@@ -30,6 +31,7 @@ api.path('GET', '/models/:name/metrics', getModelHistoricalMetrics);
 
 api.path('GET', '/models/:modelName/retrained', getRetrained);
 api.path('POST', '/models/:modelName/retrained', postRetrained);
+api.path('POST', '/models/:modelName/retrained/promote', promoteRetrainedModel);
 
 api.path('GET', '/models/:modelName/challengers', getChallengers);
 api.path('POST', '/models/:modelName/challengers', postChallenger);
