@@ -15,9 +15,9 @@ exports.do = function(request) {
 
     return MongoClient.connect(config.mongoUrl, function(err, db) {
 
-      model = converter.modelPO(body)
-      
-      db.db(config.dbName).collection(config.collections.models).insertOne(model, function(err, res) {
+      updateModel = converter.updateModel(body)
+
+      db.db(config.dbName).collection(config.collections.models).updateOne({name: body.name}, updateModel, {upsert: true}, function(err, res) {
 
         db.close();
 

@@ -120,6 +120,34 @@ exports.updateVersion = (newVersion) => {
   return {$set: {version: newVersion, date: date}}
 }
 
+exports.updateModel = (data) => {
+  
+  date = data.date;
+  if (!date) date = moment().tz('Europe/Rome').format('YYYYMMDD');
+  
+  version = data.version;
+  if (!version) version = 1;
+
+  metrics = []
+
+  if (data.metrics != null) {
+    for (var i = 0; i < data.metrics.length; i++) {
+      metric = data.metrics[i];
+      
+      metrics.push({
+        name: metric.name, 
+        value: metric.value
+      })
+    }
+  }
+  
+  return {$set: {
+    version: version,
+    date: date, 
+    metrics: metrics
+  }};
+}
+
 /**
  * Creates a find filter for mongo based on a HTTP query obj
  */
