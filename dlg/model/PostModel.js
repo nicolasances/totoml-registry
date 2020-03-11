@@ -21,9 +21,7 @@ exports.do = function(request) {
 
         db.close();
 
-        model.id = res.insertedId;
-
-        success(model);
+        success({id: res.insertedId});
 
       });
     });
