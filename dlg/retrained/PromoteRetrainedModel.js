@@ -73,7 +73,10 @@ exports.do = function(request) {
                             if (!err) {
 
                                 files.forEach(file => {
-                                    file.move(destFolder);
+                                    
+                                    logger.compute(correlationId, '[ MODEL PROMOTE ] - Moving file: ' + file.name, 'info');
+
+                                    file.move(destFolder + "/" + file.name);
                                 })
                             }
                         })
