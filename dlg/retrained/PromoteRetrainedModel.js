@@ -87,8 +87,7 @@ exports.do = function(request) {
 
                             success({
                                 modelName: modelName, 
-                                newVersion: newModelVersion,
-                                newPickle: destFile
+                                newVersion: newModelVersion
                             });
                         });
 
