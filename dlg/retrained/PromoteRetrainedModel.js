@@ -76,7 +76,9 @@ exports.do = function(request) {
                                     
                                     logger.compute(correlationId, '[ MODEL PROMOTE ] - Moving file: ' + file.name, 'info');
 
-                                    file.move(destFolder + "/" + file.name);
+                                    destFilename = file.name.substring(sourceFolder.length + 1)
+
+                                    file.move(destFolder + "/" + destFilename);
                                 })
                             }
                         })
