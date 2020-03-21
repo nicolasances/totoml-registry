@@ -64,12 +64,20 @@ exports.do = function(request) {
                         logger.compute(correlationId, '[ MODEL PROMOTE ] - Updating the Storage champion model', 'info');
 
                         storageBucket = 'toto-' + process.env.TOTO_ENV + '-model-storage';
-                        sourceFile = modelName + '/retrained/' + modelName;
-                        destFile = modelName + '/champion/' + modelName + '.v' + newModelVersion;
 
-                        // MOVE!
-                        storage.bucket(storageBucket).file(sourceFile).move(destFile);
-                        
+                        // Read all the files in the bucket
+                        sourceFolder = modelName + '/retrained';
+                        destFolder = modelName + '/v' + newModelVersion;
+
+                        storage.bucket(storageBucket).getFiles({prefix: sourceFolder}, (err, files) => {
+                            if (!err) {
+
+                                files.forEach(file => {
+                                    file.move(destFolder);
+                                })
+                            }
+                        })
+
                         // Delete the retrained model
                         logger.compute(correlationId, '[ MODEL PROMOTE ] - Deleting the retrained model', 'info');
 
@@ -83,6 +91,8 @@ exports.do = function(request) {
                                 newPickle: destFile
                             });
                         });
+
+                        // TODO: post a message on the <model>-promoted queue
 
                     }, failure)
 
