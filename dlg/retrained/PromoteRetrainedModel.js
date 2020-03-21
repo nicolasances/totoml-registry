@@ -67,7 +67,7 @@ exports.do = function(request) {
 
                         // Read all the files in the bucket
                         sourceFolder = modelName + '/retrained';
-                        destFolder = modelName + '/v' + newModelVersion;
+                        destFolder = modelName + '/champion/v' + newModelVersion;
 
                         storage.bucket(storageBucket).getFiles({prefix: sourceFolder}, (err, files) => {
                             if (!err) {
