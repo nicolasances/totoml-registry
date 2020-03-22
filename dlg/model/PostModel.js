@@ -1,6 +1,7 @@
 var mongo = require('mongodb');
 var config = require('../../config');
 var converter = require('./Converter');
+var getModel = require('./GetModel');
 
 var MongoClient = mongo.MongoClient;
 
@@ -19,10 +20,14 @@ exports.do = function(request) {
 
       db.db(config.dbName).collection(config.collections.models).updateOne({name: body.name}, updateModel, {upsert: true}, function(err, res) {
 
-        db.close();
+        // Read back the model
+        getModel.do({params: {name: body.name}}).then((data) => {
+          
+          db.close();
+          
+          success(data)
 
-        success({id: res.insertedId});
-
+        });
       });
     });
   });
