@@ -23,14 +23,14 @@ exports.do = function(request) {
     let body = request.body;
     let correlationId = request.headers['x-correlation-id'];
 
-    return new Promise(function(success, failure) {
+    return new Promise((success, failure) => {
 
         // Some validation
         if (!request.params.modelName) {failure({code: 400, message: 'Missing "modelName" in the path.'}); return;}
 
         modelName = request.params.modelName;
 
-        return MongoClient.connect(config.mongoUrl, function(err, db) {
+        return MongoClient.connect(config.mongoUrl, (err, db) => {
 
             // Get the retrained model 
             db.db(config.dbName).collection(config.collections.retrained).findOne({modelName: request.params.modelName}, (err, res) => {
