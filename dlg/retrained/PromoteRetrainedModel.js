@@ -1,6 +1,5 @@
 var mongo = require('mongodb');
 var config = require('../../config');
-var converter = require('./Converter');
 var newModelVersion = require('../model/NewModelVersion');
 var postMetrics = require('../model/PostModelMetrics');
 var logger = require('toto-logger');
@@ -73,13 +72,25 @@ exports.do = function(request) {
                         storage.bucket(storageBucket).getFiles({prefix: sourceFolder}, (err, files) => {
                             if (!err) {
 
+                                promises = []
+
                                 files.forEach(file => {
                                     
                                     logger.compute(correlationId, '[ MODEL PROMOTE ] - Moving file: ' + file.name, 'info');
 
                                     destFilename = file.name.substring(sourceFolder.length + 1)
 
-                                    file.move(destFolder + "/" + destFilename);
+                                    promises.push(file.move(destFolder + "/" + destFilename));
+
+                                })
+
+                                // When all the files have been moved, trigger the "model promoted" event
+                                Promise.all(promises).then(() => {
+                                    // Post a message on the toto-ml-model-promoted queue
+                                    totoEventPublisher.publishEvent("toto-ml-model-promoted", {
+                                        correlationId: correlationId, 
+                                        modelName: modelName
+                                    });
                                 })
                             }
                         })
@@ -95,12 +106,6 @@ exports.do = function(request) {
                                 modelName: modelName, 
                                 newVersion: newModelVersion
                             });
-                        });
-
-                        // Post a message on the toto-ml-model-promoted queue
-                        totoEventPublisher.publishEvent("toto-ml-model-promoted", {
-                            correlationId: correlationId, 
-                            modelName: modelName
                         });
 
                     }, failure)
