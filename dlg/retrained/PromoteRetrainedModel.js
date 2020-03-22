@@ -99,6 +99,7 @@ exports.do = function(request) {
 
                         // Post a message on the toto-ml-model-promoted queue
                         totoEventPublisher.publishEvent("toto-ml-model-promoted", {
+                            correlationId: correlationId, 
                             modelName: modelName
                         });
 
