@@ -20,7 +20,9 @@ var postChallenger = require('./dlg/challenger/PostChallenger');
 
 var apiName = 'totoml-registry';
 
-var api = new Controller(apiName);
+totoEventPublisher.registerTopic({topicName: 'toto-ml-model-promoted', microservice: apiName}).then(() => {}, (err) => {console.log(err);});
+
+var api = new Controller(apiName, totoEventPublisher);
 
 api.path('GET', '/models', getModels);
 api.path('POST', '/models', postModel);

@@ -4,6 +4,7 @@ var converter = require('./Converter');
 var newModelVersion = require('../model/NewModelVersion');
 var postMetrics = require('../model/PostModelMetrics');
 var logger = require('toto-logger');
+var totoEventPublisher = require('toto-event-publisher');
 const {Storage} = require('@google-cloud/storage');
 
 const storage = new Storage();
@@ -96,7 +97,10 @@ exports.do = function(request) {
                             });
                         });
 
-                        // TODO: post a message on the <model>-promoted queue
+                        // Post a message on the toto-ml-model-promoted queue
+                        totoEventPublisher.publishEvent("toto-ml-model-promoted", {
+                            modelName: modelName
+                        });
 
                     }, failure)
 
