@@ -10,3 +10,8 @@ Registry is a repository for your Machine Learning Models, that provides the fol
 * **Score tracking**: Registry allows you to track for every model the history of its scoring metrics. That will help you understand how your model's performances evolve over time.
 * **Track retraining**: Registry allows you to register every time you retrained a model. 
 * **Model Promotion**: Registry allows you to take a retrained model and promote it to "Champion".
+
+## Table of Contents
+Learn about Registry following these guides and explanations. 
+
+* [**Concepts & Data Model**](guides/datamodel.md) : description of the Registry's main entities and concepts and how they're linked together.
