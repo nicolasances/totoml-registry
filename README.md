@@ -14,4 +14,5 @@ Registry is a repository for your Machine Learning Models, that provides the fol
 ## Table of Contents
 Learn about Registry following these guides and explanations. 
 
-* [**Concepts & Data Model**](guides/datamodel.md) : description of the Registry's main entities and concepts and how they're linked together.
+* [**Concepts & Data Model**](guides/datamodel.md): description of the Registry's main entities and concepts and how they're linked together.
+* [**Processes**](guides/processes.md): description of the core processes managed or supported by Registry.
