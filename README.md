@@ -16,4 +16,4 @@ Learn about Registry following these guides and explanations.
 
 * [**Concepts & Data Model**](guides/datamodel.md): description of the Registry's main entities and concepts and how they're linked together.
 * [**Processes**](guides/processes.md): description of the core processes managed or supported by Registry.
-* [**Storage](guides/storage.md): description of how TotoML stores files and data related to the models registered in Registry.
+* [**Storage**](guides/storage.md): description of how TotoML stores files and data related to the models registered in Registry.
