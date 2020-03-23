@@ -1,7 +1,7 @@
 var logger = require('toto-logger');
 var Controller = require('toto-api-controller');
 var totoEventPublisher = require('toto-event-publisher');
-var moment = require(moment);
+var moment = require('moment');
 
 var postModel = require('./dlg/model/PostModel');
 var getModels = require('./dlg/model/GetModels');
