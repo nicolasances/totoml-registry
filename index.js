@@ -18,6 +18,9 @@ var getChallengers = require('./dlg/challenger/GetChallengers');
 var getChallenger = require('./dlg/challenger/GetChallenger');
 var postChallenger = require('./dlg/challenger/PostChallenger');
 
+var getModelConfig = require('./dlg/config/GetModelConfig');
+var postModelConfig = require('./dlg/config/PostModelConfig');
+
 const cron = require("node-cron")
 
 var apiName = 'totoml-registry';
@@ -89,5 +92,9 @@ api.path('POST', '/models/:modelName/retrained/promote', promoteRetrainedModel);
 api.path('GET', '/models/:modelName/challengers', getChallengers);
 api.path('POST', '/models/:modelName/challengers', postChallenger);
 api.path('GET', '/challengers/:id', getChallenger);
+
+api.path('GET', '/models/:modelName/config', getModelConfig);
+api.path('POST', '/models/:modelName/config', postModelConfig);
+api.path('PUT', '/models/:modelName/config', postModelConfig);
 
 api.listen();
