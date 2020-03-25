@@ -10,9 +10,14 @@ exports.do = function(req) {
 
     return MongoClient.connect(config.mongoUrl, function(err, db) {
 
-      db.db(config.dbName).collection(config.collections.modelConfig).find({modelName: reqs.params.modelName}).toArray(function(err, array) {
+      db.db(config.dbName).collection(config.collections.modelConfig).find({modelName: req.params.modelName}).toArray(function(err, array) {
 
         db.close();
+
+        if (!array || array.length == 0) {
+          success({});
+          return;
+        }
 
         success(converter.modelConfigTO(array[0]));
 

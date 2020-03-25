@@ -2,6 +2,8 @@ var mongo = require('mongodb');
 var config = require('../../config');
 var converter = require('./Converter');
 
+var trainingCron = require('../../cron/TrainingCron').cron;
+
 var MongoClient = mongo.MongoClient;
 
 exports.do = function(request) {
@@ -20,8 +22,10 @@ exports.do = function(request) {
       db.db(config.dbName).collection(config.collections.modelConfig).updateOne({modelName: request.params.modelName}, updateModelConfig, {upsert: true}, function(err, res) {
 
         db.close();
+
+        if (body.trainingSchedule) trainingCron.changeCron(body.trainingSchedule, request.params.modelName);
         
-        success(data)
+        success(res)
 
       });
     });
