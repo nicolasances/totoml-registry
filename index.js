@@ -22,13 +22,13 @@ var getModelConfig = require('./dlg/config/GetModelConfig');
 var postModelConfig = require('./dlg/config/PostModelConfig');
 var getModelsConfig = require('./dlg/config/GetModelsConfig');
 
-// Start the training cron
+// Start the training and scoring crons
 require('./cron/TrainingCron');
+require('./cron/ScoringCron');
 
 var apiName = 'totoml-registry';
 
 totoEventPublisher.registerTopic({topicName: 'toto-ml-model-promoted', microservice: apiName}).then(() => {}, (err) => {console.log('Error while registering the topic.'); console.log(err);});
-totoEventPublisher.registerTopic({topicName: 'ercbod-train', microservice: apiName}).then(() => {}, (err) => {console.log(err);});
 
 // cron.schedule("0 0 7 * * Saturday", () => {
 
@@ -43,7 +43,7 @@ totoEventPublisher.registerTopic({topicName: 'ercbod-train', microservice: apiNa
 //     let apiServer = process.env.TOTO_HOST
 //     let auth = process.env.TOTO_API_AUTH
 //     req = {
-//         url : 'https://' + apiServer + '/apis/model/ercbod/train',
+//         url : 'https://' + apiServer + '/apis/model/ercbod/score',
 //         method: 'GET',
 //         headers : {
 //             'User-Agent' : 'node.js',

@@ -17,28 +17,28 @@ var cid = () => {
 }
 
 /**
- * This class has the responsibility of training a single model
- * It provides the method train() which will trigger the training process for 
+ * This class has the responsibility of scoring a single model
+ * It provides the method score() which will trigger the scoring process for 
  * a given model
  */
-class Trainer {
+class Scorer {
 
     constructor(modelName) {
 
         this.modelName = modelName;
 
-        this.train = this.train.bind(this);
+        this.score = this.score.bind(this);
 
     }
 
     /**
-     * Training function
+     * Scoring function
      */
-    train() {
+    score() {
 
         let correlationId = cid();
 
-        logger.compute(correlationId, 'TRAINING CRON: Triggering [ ' + this.modelName + ' ] /training process', 'info');
+        logger.compute(correlationId, 'TRAINING CRON: Triggering [ ' + this.modelName + ' ] /scoring process', 'info');
 
         if (!this.modelName) return;
 
@@ -46,8 +46,8 @@ class Trainer {
         let auth = process.env.TOTO_API_AUTH
 
         let req = {
-            url : 'https://' + apiServer + '/apis/model/' + this.modelName + '/train',
-            method: 'POST',
+            url : 'https://' + apiServer + '/apis/model/' + this.modelName + '/score',
+            method: 'GET',
             headers : {
                 'User-Agent' : 'node.js',
                 'Authorization': auth, 
@@ -60,11 +60,11 @@ class Trainer {
 }
 
 /**
- * This class creates all the training crons for all the jobs. 
+ * This class creates all the scoring crons for all the jobs. 
  * It will get all the models from the configuration and create a cron for them 
  * (based on what's defined in the configuration)
  */
-class TrainingCron {
+class ScoringCron {
 
     constructor() {
 
@@ -72,7 +72,7 @@ class TrainingCron {
 
         let correlationId = cid();
 
-        logger.compute(correlationId, 'Retrieving cron configuration for training jobs', 'info');
+        logger.compute(correlationId, 'Retrieving cron configuration for scoring jobs', 'info');
 
         // 1. Load all the models
         getModelsConfig.do().then((data) => {
@@ -80,25 +80,25 @@ class TrainingCron {
             if (!data || !data.configs || data.configs.length == 0) return;
 
             this.tasks = [];
-            this.trainers = [];
+            this.scorers = [];
 
             for (var i = 0; i < data.configs.length; i++) {
 
                 let config = data.configs[i];
                 
-                // If there is no training schedule for the model, skip
-                if (!config.trainingSchedule) continue;
+                // If there is no scoring schedule for the model, skip
+                if (!config.scoringSchedule) continue;
 
-                logger.compute(correlationId, 'Found training configuration for model ' + config.modelName + ': ' + config.trainingSchedule + ' ', 'info');
-                
-                // Create the trainer
-                let trainer = new Trainer(config.modelName);
-                trainer.task = cron.schedule(config.trainingSchedule, trainer.train, {
+                logger.compute(correlationId, 'Found scoring configuration for model ' + config.modelName + ': ' + config.scoringSchedule + ' ', 'info');
+
+                // Create the scorer
+                let scorer = new Scorer(config.modelName);
+                scorer.task = cron.schedule(config.scoringSchedule, scorer.score, {
                     scheduled: true, 
                     timezone: 'Europe/Rome'
                 });
                 
-                this.trainers.push(trainer);
+                this.scorers.push(scorer);
             }
         })
     }
@@ -110,37 +110,37 @@ class TrainingCron {
      */
     changeCron(schedule, modelName, correlationId) {
 
-        // In case there were no trainers, initialize
-        if (!this.trainers) this.trainers = []
+        // In case there were no scorers, initialize
+        if (!this.scorers) this.scorers = []
 
-        for (var i = 0; i < this.trainers.length; i++) {
+        for (var i = 0; i < this.scorers.length; i++) {
             
-            if (this.trainers[i].modelName == modelName) {
-                this.trainers[i].task.destroy()
-                this.trainers[i].task = cron.schedule(schedule, this.trainers[i].train, {
+            if (this.scorers[i].modelName == modelName) {
+                this.scorers[i].task.destroy()
+                this.scorers[i].task = cron.schedule(schedule, this.scorers[i].score, {
                     scheduled: true, 
                     timezone: 'Europe/Rome'
                 });
 
-                logger.compute(correlationId, 'Changed training cron for model [ ' + modelName + ' ] : ' + schedule, 'info');
+                logger.compute(correlationId, 'Changed scoring cron for model [ ' + modelName + ' ] : ' + schedule, 'info');
 
                 return;
             }
         }
 
-        // If you're here, it means there was no trainer created for this model
+        // If you're here, it means there was no scorer created for this model
         // => create it
-        let trainer = new Trainer(modelName);
-        trainer.task = cron.schedule(schedule, trainer.train, {
+        let scorer = new Scorer(modelName);
+        scorer.task = cron.schedule(schedule, scorer.score, {
             scheduled: true, 
             timezone: 'Europe/Rome'
         });
         
-        this.trainers.push(trainer);
+        this.scorers.push(scorer);
 
-        logger.compute(correlationId, 'Created training cron for model [ ' + modelName + ' ] : ' + schedule, 'info');
+        logger.compute(correlationId, 'Created scoring cron for model [ ' + modelName + ' ] : ' + schedule, 'info');
 
     }
 }
 
-exports.cron = new TrainingCron();
+exports.cron = new ScoringCron();

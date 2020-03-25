@@ -3,12 +3,14 @@ var config = require('../../config');
 var converter = require('./Converter');
 
 var trainingCron = require('../../cron/TrainingCron').cron;
+var scoringCron = require('../../cron/ScoringCron').cron;
 
 var MongoClient = mongo.MongoClient;
 
 exports.do = function(request) {
 
   let body = request.body;
+  let correlationId = request.headers['x-correlation-id'];
 
   return new Promise(function(success, failure) {
 
@@ -23,7 +25,8 @@ exports.do = function(request) {
 
         db.close();
 
-        if (body.trainingSchedule) trainingCron.changeCron(body.trainingSchedule, request.params.modelName);
+        if (body.trainingSchedule) trainingCron.changeCron(body.trainingSchedule, request.params.modelName, correlationId);
+        if (body.scoringSchedule) scoringCron.changeCron(body.scoringSchedule, request.params.modelName, correlationId);
         
         success(res)
 
