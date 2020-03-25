@@ -30,30 +30,6 @@ var apiName = 'totoml-registry';
 
 totoEventPublisher.registerTopic({topicName: 'toto-ml-model-promoted', microservice: apiName}).then(() => {}, (err) => {console.log('Error while registering the topic.'); console.log(err);});
 
-// cron.schedule("0 0 7 * * Saturday", () => {
-
-//     console.log('Triggering ercbod /train process');
-
-//     totoEventPublisher.publishEvent('ercbod-train', {"correlationId": cid()})
-// })
-// cron.schedule("0 0 18 * * *", () => {
-
-//     console.log('Triggering ercbod /score process');
-
-//     let apiServer = process.env.TOTO_HOST
-//     let auth = process.env.TOTO_API_AUTH
-//     req = {
-//         url : 'https://' + apiServer + '/apis/model/ercbod/score',
-//         method: 'GET',
-//         headers : {
-//             'User-Agent' : 'node.js',
-//             'Authorization': auth, 
-//             'x-correlation-id': cid()
-//         }
-//     }
-//     http(req, (err, resp, body) => { if (err) console.log(err); });
-// })
-
 var api = new Controller(apiName, totoEventPublisher);
 
 api.path('GET', '/models', getModels);
