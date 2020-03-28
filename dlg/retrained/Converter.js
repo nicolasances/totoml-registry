@@ -22,6 +22,7 @@ exports.retrainedTO = function(data) {
     id: data._id,
     modelName: data.modelName,
     date: data.date, 
+    time: data.time,
     metrics: metrics
   };
 }
@@ -33,6 +34,7 @@ exports.retrainedPO = function(modelName, data) {
 
   // Date of creation of this challenger
   date = moment().tz('Europe/Rome').format('YYYYMMDD');
+  time = moment().tz('Europe/Rome').format('HH:mm');
 
   // Metrics of this challenger
   metrics = []
@@ -49,6 +51,7 @@ exports.retrainedPO = function(modelName, data) {
   return {
     modelName: modelName,
     date: date, 
+    time: time,
     metrics: metrics
   };
 }
