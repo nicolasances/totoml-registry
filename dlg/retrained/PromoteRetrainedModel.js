@@ -1,6 +1,5 @@
 var mongo = require('mongodb');
 var config = require('../../config');
-var newModelVersion = require('../model/NewModelVersion');
 var postMetrics = require('../model/PostModelMetrics');
 var logger = require('toto-logger');
 var totoEventPublisher = require('toto-event-publisher');
@@ -45,6 +44,7 @@ exports.do = function(request) {
 
                 // Update the champion model: 
                 // - version
+                var newModelVersion = require('../model/NewModelVersion');
                 newModelVersion.do({params: {name: modelName}}).then((newVersionData) => {
                     
                     metricsUpdate = {
