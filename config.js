@@ -7,5 +7,6 @@ exports.collections = {
     modelConfig: 'modelConfig',
     historicalMetrics: 'historicalMetrics',
     retrained: 'retrained',
-    challengers: 'challengers'
+    challengers: 'challengers',
+    status: 'status',
 };

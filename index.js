@@ -22,6 +22,9 @@ var getModelConfig = require('./dlg/config/GetModelConfig');
 var postModelConfig = require('./dlg/config/PostModelConfig');
 var getModelsConfig = require('./dlg/config/GetModelsConfig');
 
+var getStatus = require('./dlg/status/GetStatus');
+var postStatus = require('./dlg/status/PostStatus');
+
 // Start the training and scoring crons
 require('./cron/TrainingCron');
 require('./cron/ScoringCron');
@@ -51,5 +54,9 @@ api.path('GET', '/configs', getModelsConfig);
 api.path('GET', '/models/:modelName/config', getModelConfig);
 api.path('POST', '/models/:modelName/config', postModelConfig);
 api.path('PUT', '/models/:modelName/config', postModelConfig);
+
+api.path('PUT', '/models/:modelName/status', postStatus);
+api.path('POST', '/models/:modelName/status', postStatus);
+api.path('GET', '/models/:modelName/status', getStatus);
 
 api.listen();
