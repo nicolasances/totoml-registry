@@ -18,16 +18,20 @@ var MongoClient = mongo.MongoClient;
  * 3. Update the champion model's pickle in Storage
  */
 exports.do = function(request) {
-
+    
     let body = request.body;
     let correlationId = request.headers['x-correlation-id'];
-
+    
     return new Promise((success, failure) => {
-
+        
         // Some validation
         if (!request.params.modelName) {failure({code: 400, message: 'Missing "modelName" in the path.'}); return;}
-
+        
         modelName = request.params.modelName;
+
+        // Post the status
+        var postStatus = require('../status/PostStatus');
+        postStatus.do({params: {modelName: modelName}, body: {promotionStatus: 'promoting'}});
 
         return MongoClient.connect(config.mongoUrl, (err, db) => {
 
@@ -91,6 +95,9 @@ exports.do = function(request) {
                                         correlationId: correlationId, 
                                         modelName: modelName
                                     });
+
+                                    // Finish by updating the status
+                                    postStatus.do({params: {modelName: modelName}, body: {promotionStatus: 'not-promoting'}});
                                 })
                             }
                         })
