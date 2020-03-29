@@ -35,6 +35,7 @@ exports.modelTO = function(data) {
 exports.modelPO = function(data) {
 
   date = moment().tz('Europe/Rome').format('YYYYMMDD');
+  time = moment().tz('Europe/Rome').format('HH:mm');
   
   version = data.version;
   if (!version) version = 1;
@@ -56,6 +57,7 @@ exports.modelPO = function(data) {
     name: data.name,
     version: version,
     date: date, 
+    time: time,
     metrics: metrics
   };
 }
@@ -116,8 +118,9 @@ exports.updateMetrics = (data) => {
 exports.updateVersion = (newVersion) => {
 
   date = moment().tz('Europe/Rome').format('YYYYMMDD');
+  time = moment().tz('Europe/Rome').format('HH:mm');
 
-  return {$set: {version: newVersion, date: date}}
+  return {$set: {version: newVersion, date: date, time: time}}
 }
 
 exports.updateModel = (data) => {
