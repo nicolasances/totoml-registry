@@ -25,7 +25,8 @@ exports.modelTO = function(data) {
     name: data.name,
     version: data.version,
     date: data.date, 
-    metrics: metrics
+    description: data.description,
+    metrics: metrics,
   };
 }
 
