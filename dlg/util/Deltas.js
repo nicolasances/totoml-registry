@@ -39,28 +39,18 @@ exports.calculateMetricDeltas = (modelName) => {
                     let metricName = champMetrics[i].name;
                     let champValue = champMetrics[i].value;
 
-                    console.log("Calc delta for metric: " + metricName);
-    
                     for (var j = 0; j < retrainedMetrics.length; j++) {
 
-                        console.log('Retrained metric: ' + retrainedMetrics[j].name);
-    
                         if (retrainedMetrics[j].name == metricName) {
     
                             let retrainedValue = retrainedMetrics[j].value;
     
                             let delta = retrainedValue - champValue;
 
-                            console.log('Delta: ' + delta);
-    
-                            deltas.push[{metricName: metricName, delta: delta}]
+                            deltas.push({metricName: metricName, delta: delta})
                         }
                     }
                 }
-
-                console.log('Deltas: ');
-                console.log(deltas);
-                
 
                 success({deltas: deltas});
     
