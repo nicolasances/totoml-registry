@@ -6,6 +6,7 @@ var moment = require('moment');
 var postModel = require('./dlg/model/PostModel');
 var getModels = require('./dlg/model/GetModels');
 var getModel = require('./dlg/model/GetModel');
+var putModel = require('./dlg/model/PutModel');
 var deleteModel = require('./dlg/model/DeleteModel');
 var postModelMetrics = require('./dlg/model/PostModelMetrics');
 var getModelHistoricalMetrics = require('./dlg/model/GetModelHistoricalMetrics');
@@ -39,6 +40,7 @@ api.path('GET', '/models', getModels);
 api.path('POST', '/models', postModel);
 api.path('GET', '/models/:name', getModel);
 api.path('DELETE', '/models/:name', deleteModel);
+api.path('PUT', '/models/:name', putModel);
 api.path('POST', '/models/:name/metrics', postModelMetrics);
 api.path('GET', '/models/:name/metrics', getModelHistoricalMetrics);
 

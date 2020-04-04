@@ -124,31 +124,42 @@ exports.updateVersion = (newVersion) => {
 }
 
 exports.updateModel = (data) => {
-  
-  date = data.date;
-  if (!date) date = moment().tz('Europe/Rome').format('YYYYMMDD');
-  
-  version = data.version;
-  if (!version) version = 1;
 
-  metrics = []
+  // If we're updating the version of the model
+  if (data.version) {
 
-  if (data.metrics != null) {
-    for (var i = 0; i < data.metrics.length; i++) {
-      metric = data.metrics[i];
-      
-      metrics.push({
-        name: metric.name, 
-        value: metric.value
-      })
+    date = data.date;
+    if (!date) date = moment().tz('Europe/Rome').format('YYYYMMDD');
+    
+    version = data.version;
+    if (!version) version = 1;
+  
+    metrics = []
+  
+    if (data.metrics != null) {
+      for (var i = 0; i < data.metrics.length; i++) {
+        metric = data.metrics[i];
+        
+        metrics.push({
+          name: metric.name, 
+          value: metric.value
+        })
+      }
     }
+    
+    return {$set: {
+      version: version,
+      date: date, 
+      metrics: metrics
+    }};
   }
-  
-  return {$set: {
-    version: version,
-    date: date, 
-    metrics: metrics
-  }};
+
+  // Otherwise 
+  let upd = {};
+
+  if (data.description) upd.description = data.description;
+
+  return {$set: upd};
 }
 
 /**
