@@ -159,6 +159,7 @@ exports.updateModel = (data) => {
   let upd = {};
 
   if (data.description) upd.description = data.description;
+  if (data.deltas) upd.deltas = data.deltas;
 
   return {$set: upd};
 }

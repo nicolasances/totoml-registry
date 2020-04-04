@@ -30,13 +30,25 @@ exports.do = function(request) {
         
         // Post the new model
         db.db(config.dbName).collection(config.collections.retrained).insertOne(converter.retrainedPO(request.params.modelName, body), function(err, res) {
-  
-          db.close();
-  
-          success({id: res.insertedId});
-  
-        });
 
+          db.close();
+
+          success({id: res.insertedId});
+
+          // Post the metrics delta
+          var deltaCalculator = require('../util/Deltas');
+          
+          deltaCalculator.calculateMetricDeltas(request.params.modelName).then((data) => {
+
+            // Update the Champion Model
+            var updateChampion = require('../model/PutModel');
+
+            updateChampion.do({
+              params: { name: request.params.modelName },
+              body: { deltas : data.deltas }
+            });
+          });
+        });
       });
     });
   });

@@ -50,8 +50,21 @@ exports.do = function(request) {
           db.close();
   
           success({});
-        });
 
+          // Post the metrics delta
+          var deltaCalculator = require('../util/Deltas');
+          
+          deltaCalculator.calculateMetricDeltas(request.params.modelName).then((data) => {
+
+            // Update the Champion Model
+            var updateChampion = require('../model/PutModel');
+
+            updateChampion.do({
+              params: { name: request.params.modelName },
+              body: { deltas : data.deltas }
+            });
+          });
+        });
       });
     });
   });
