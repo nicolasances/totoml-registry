@@ -27,6 +27,7 @@ exports.modelTO = function(data) {
     date: data.date, 
     description: data.description,
     metrics: metrics,
+    deltas: data.deltas
   };
 }
 
