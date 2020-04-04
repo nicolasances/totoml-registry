@@ -15,7 +15,7 @@ exports.do = function(request) {
 
       updateModel = converter.updateModel(body)
 
-      db.db(config.dbName).collection(config.collections.models).updateOne({name: body.name}, updateModel, function(err, res) {
+      db.db(config.dbName).collection(config.collections.models).updateOne({name: request.params.name}, updateModel, function(err, res) {
 
         db.close();
         
