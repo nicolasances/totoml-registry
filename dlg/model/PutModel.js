@@ -11,9 +11,6 @@ exports.do = function(request) {
 
   return new Promise(function(success, failure) {
 
-    // Some validation
-    if (!body.name) {failure({code: 400, message: 'Missing "name" field.'}); return;}
-
     return MongoClient.connect(config.mongoUrl, function(err, db) {
 
       updateModel = converter.updateModel(body)
