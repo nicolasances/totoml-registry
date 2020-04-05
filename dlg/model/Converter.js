@@ -24,6 +24,7 @@ exports.modelTO = function(data) {
     id: data._id,
     name: data.name,
     version: data.version,
+    totomlPythonSDKVersion: data.totomlPythonSDKVersion,
     date: data.date, 
     description: data.description,
     metrics: metrics,
@@ -161,6 +162,7 @@ exports.updateModel = (data) => {
 
   if (data.description) upd.description = data.description;
   if (data.deltas) upd.deltas = data.deltas;
+  if (data.totomlPythonSDKVersion) upd.totomlPythonSDKVersion = data.totomlPythonSDKVersion;
 
   return {$set: upd};
 }
