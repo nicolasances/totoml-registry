@@ -160,7 +160,10 @@ exports.updateModel = (data) => {
   // Otherwise 
   let upd = {};
 
-  if (data.name) upd.name = data.name;
+  if (data.name) {
+    upd.name = data.name;
+    upd.version = 1;
+  }
   if (data.description) upd.description = data.description;
   if (data.deltas) upd.deltas = data.deltas;
   if (data.totomlPythonSDKVersion) upd.totomlPythonSDKVersion = data.totomlPythonSDKVersion;
